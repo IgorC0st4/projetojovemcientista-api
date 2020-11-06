@@ -44,7 +44,7 @@ public class NivelController {
 		Nivel nivel = repository.findById(id).orElseThrow(() -> new NivelNotFoundException(id));
 		return assembler.toModel(nivel);
 	}
-
+	
 	@PutMapping("/{id}")
 	public ResponseEntity<?> atualizar(@RequestBody Nivel novoNivel, @PathVariable Long id) {
 		Nivel nivelAtualizado = repository.findById(id).map(nivel -> {

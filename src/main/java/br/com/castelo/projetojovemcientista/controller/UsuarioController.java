@@ -20,6 +20,7 @@ import br.com.castelo.projetojovemcientista.repository.UsuarioRepository;
 
 @RestController
 @RequestMapping("/usuario")
+@CrossOrigin(origins = "http://localhost:8100", allowedHeaders = "*")
 public class UsuarioController {
 	@Autowired
 	private UsuarioRepository repository;
@@ -44,7 +45,7 @@ public class UsuarioController {
 		Usuario usuario = repository.findById(id).orElseThrow(() -> new UsuarioNotFoundException(id));
 		return assembler.toModel(usuario);
 	}
-
+	
 	@PutMapping("/{id}")
 	public ResponseEntity<?> atualizar(@RequestBody Usuario novoUsuario, @PathVariable Long id) {
 		Usuario usuarioAtualizado = repository.findById(id).map(usuario -> {

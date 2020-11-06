@@ -1,4 +1,3 @@
-create schema db_jovem;
 
 CREATE TABLE `nivel` (
     `id` BIGINT NOT NULL AUTO_INCREMENT,
@@ -10,8 +9,8 @@ CREATE TABLE `nivel` (
 
 CREATE TABLE `administrador` (
     `id` BIGINT NOT NULL AUTO_INCREMENT,
-    `email` VARCHAR(100) NOT NULL,
-    `senha` VARCHAR(100) NOT NULL,
+    `email` VARCHAR(60) NOT NULL,
+    `senha` VARCHAR(16) NOT NULL,
     PRIMARY KEY (`id`)
 );
 
@@ -19,8 +18,9 @@ CREATE TABLE `usuario` (
     `id` BIGINT NOT NULL AUTO_INCREMENT,
     `nick` VARCHAR(100) NOT NULL,
     `idade` INT NOT NULL,
-    `escolaridade` VARCHAR(100) NOT NULL,
+    `escolaridade` VARCHAR(20) NOT NULL,
     `genero` VARCHAR(1) NOT NULL,
+    `senha` VARCHAR(16) NOT NULL,
     PRIMARY KEY (`id`)
 );
 
