@@ -13,6 +13,7 @@ import org.springframework.hateoas.IanaLinkRelations;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import br.com.castelo.projetojovemcientista.exception.SenhaIncorretaException;
 import br.com.castelo.projetojovemcientista.exception.UsuarioNotFoundException;
 import br.com.castelo.projetojovemcientista.model.Usuario;
 import br.com.castelo.projetojovemcientista.modelAssembler.UsuarioModelAssembler;
@@ -34,10 +35,20 @@ public class UsuarioController {
 		return CollectionModel.of(usuarios, linkTo(methodOn(UsuarioController.class).listar()).withSelfRel());
 	}
 
-	@PostMapping
+	@PostMapping("/cadastro")
 	public ResponseEntity<?> salvar(@RequestBody Usuario novoUsuario) {
 		EntityModel<Usuario> entityModel = assembler.toModel(repository.save(novoUsuario));
 		return ResponseEntity.created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri()).body(entityModel);
+	}
+	
+	@PostMapping("/login")
+	public EntityModel<Usuario> efetuarLogin(@RequestBody Usuario usuarioLogin) {
+		Usuario usuario = repository.findByNick(usuarioLogin.getNick()).orElseThrow(() -> new UsuarioNotFoundException(usuarioLogin.getNick()));
+		if(usuario.getSenha().equals(usuarioLogin.getSenha())) {
+			return assembler.toModel(usuario);
+		}else {
+			throw new SenhaIncorretaException();
+		}
 	}
 
 	@GetMapping("/{id}")
