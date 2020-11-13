@@ -20,7 +20,8 @@ import br.com.castelo.projetojovemcientista.repository.ResultadoRepository;
 
 @RestController
 @RequestMapping("/resultado")
-@CrossOrigin(origins = "http://localhost:8100", allowedHeaders = "*")
+//@CrossOrigin(origins = "http://localhost:8100", allowedHeaders = "*")
+@CrossOrigin(origins = "http://186.219.4.245:8100/", allowedHeaders = "*")
 public class ResultadoController {
 	@Autowired
 	private ResultadoRepository repository;

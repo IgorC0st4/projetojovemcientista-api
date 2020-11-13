@@ -20,7 +20,8 @@ import br.com.castelo.projetojovemcientista.repository.NivelRepository;
 
 @RestController
 @RequestMapping("/nivel")
-@CrossOrigin(origins = "http://localhost:8100", allowedHeaders = "*")
+//@CrossOrigin(origins = "http://localhost:8100", allowedHeaders = "*")
+@CrossOrigin(origins = "http://186.219.4.245:8100/", allowedHeaders = "*")
 public class NivelController {
 	@Autowired
 	private NivelRepository repository;
