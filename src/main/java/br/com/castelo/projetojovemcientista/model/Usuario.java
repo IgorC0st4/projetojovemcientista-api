@@ -1,5 +1,6 @@
 package br.com.castelo.projetojovemcientista.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,7 +14,9 @@ public class Usuario {
 	private Long id;
 	private String nick;
 	private int idade;
-	private String escolaridade;
+	private int escolaridade;
+	@Column(name = "tipo_escola")
+	private String tipoEscola;
 	private String genero;
 	private String senha;
 
@@ -41,12 +44,20 @@ public class Usuario {
 		this.idade = idade;
 	}
 
-	public String getEscolaridade() {
+	public int getEscolaridade() {
 		return escolaridade;
 	}
 
-	public void setEscolaridade(String escolaridade) {
+	public void setEscolaridade(int escolaridade) {
 		this.escolaridade = escolaridade;
+	}
+
+	public String getTipoEscola() {
+		return tipoEscola;
+	}
+
+	public void setTipoEscola(String tipoEscola) {
+		this.tipoEscola = tipoEscola;
 	}
 
 	public String getGenero() {
@@ -63,12 +74,6 @@ public class Usuario {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
-	}
-
-	@Override
-	public String toString() {
-		return "Usuario [id=" + id + ", nick=" + nick + ", idade=" + idade + ", escolaridade=" + escolaridade
-				+ ", genero=" + genero + ", senha=" + senha + "]";
 	}
 
 	@Override

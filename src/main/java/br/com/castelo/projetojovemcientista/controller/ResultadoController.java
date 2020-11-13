@@ -20,6 +20,7 @@ import br.com.castelo.projetojovemcientista.repository.ResultadoRepository;
 
 @RestController
 @RequestMapping("/resultado")
+@CrossOrigin(origins = "http://localhost:8100", allowedHeaders = "*")
 public class ResultadoController {
 	@Autowired
 	private ResultadoRepository repository;
@@ -39,9 +40,9 @@ public class ResultadoController {
 		return ResponseEntity.created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri()).body(entityModel);
 	}
 
-	@GetMapping("/{id}")
-	public EntityModel<Resultado> procurar(@PathVariable Long id) {
-		Resultado resultado = repository.findById(id).orElseThrow(() -> new ResultadoNotFoundException(id));
+	@GetMapping("/maisRapido/{id}")
+	public EntityModel<Resultado> procurarResultadoMaisRapido(@PathVariable Long id) {
+		Resultado resultado = repository.findResultadoMaisRapido(id);
 		return assembler.toModel(resultado);
 	}
 

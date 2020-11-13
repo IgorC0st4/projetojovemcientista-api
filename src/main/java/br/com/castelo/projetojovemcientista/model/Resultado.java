@@ -1,5 +1,6 @@
 package br.com.castelo.projetojovemcientista.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,13 +14,18 @@ public class Resultado {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Column(name = "tempo_final")
 	private String tempoFinal;
+	private int erros;
 	@ManyToOne
 	@JoinColumn(name = "id_usuario")
 	private Usuario usuario;
 	@ManyToOne
 	@JoinColumn(name = "id_nivel")
 	private Nivel nivel;
+
+	public Resultado() {
+	}
 
 	public Long getId() {
 		return id;
@@ -35,6 +41,14 @@ public class Resultado {
 
 	public void setTempoFinal(String tempoFinal) {
 		this.tempoFinal = tempoFinal;
+	}
+
+	public int getErros() {
+		return erros;
+	}
+
+	public void setErros(int erros) {
+		this.erros = erros;
 	}
 
 	public Usuario getUsuario() {
@@ -55,7 +69,7 @@ public class Resultado {
 
 	@Override
 	public String toString() {
-		return "Resultado [id=" + id + ", tempoFinal=" + tempoFinal + ", usuario=" + usuario
+		return "Resultado [id=" + id + ", tempoFinal=" + tempoFinal + ", erros=" + erros + ", usuario=" + usuario
 				+ ", nivel=" + nivel + "]";
 	}
 
