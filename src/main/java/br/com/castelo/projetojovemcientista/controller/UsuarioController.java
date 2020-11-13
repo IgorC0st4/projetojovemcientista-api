@@ -22,6 +22,7 @@ import br.com.castelo.projetojovemcientista.repository.UsuarioRepository;
 @RestController
 @RequestMapping("/usuario")
 //@CrossOrigin(origins = "http://localhost:8100", allowedHeaders = "*")
+@CrossOrigin(allowedHeaders = "*", origins = "*")
 public class UsuarioController {
 	@Autowired
 	private UsuarioRepository repository;

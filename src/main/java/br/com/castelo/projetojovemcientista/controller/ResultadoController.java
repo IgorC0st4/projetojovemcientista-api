@@ -21,6 +21,7 @@ import br.com.castelo.projetojovemcientista.repository.ResultadoRepository;
 @RestController
 @RequestMapping("/resultado")
 //@CrossOrigin(origins = "http://localhost:8100", allowedHeaders = "*")
+@CrossOrigin(allowedHeaders = "*", origins = "*")
 public class ResultadoController {
 	@Autowired
 	private ResultadoRepository repository;
