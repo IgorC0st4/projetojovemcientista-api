@@ -21,7 +21,7 @@ CREATE TABLE `usuario` (
     `escolaridade` INTEGER NOT NULL,
     `tipo_escola` VARCHAR(10) NOT NULL,
     `genero` VARCHAR(1) NOT NULL,
-    `senha` VARCHAR(16) NOT NULL,
+    `senha` TEXT NOT NULL,
     PRIMARY KEY (`id`)
 );
 

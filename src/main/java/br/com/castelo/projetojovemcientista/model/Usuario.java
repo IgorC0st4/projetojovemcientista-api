@@ -67,7 +67,7 @@ public class Usuario {
 	public void setGenero(String genero) {
 		this.genero = genero;
 	}
-
+	
 	public String getSenha() {
 		return senha;
 	}
@@ -101,4 +101,11 @@ public class Usuario {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "Usuario [id=" + id + ", nick=" + nick + ", idade=" + idade + ", escolaridade=" + escolaridade
+				+ ", tipoEscola=" + tipoEscola + ", genero=" + genero + ", senha=" + senha + "]";
+	}
+
+	
 }

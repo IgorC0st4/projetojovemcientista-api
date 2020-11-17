@@ -13,7 +13,6 @@ import org.springframework.hateoas.IanaLinkRelations;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import br.com.castelo.projetojovemcientista.exception.ResultadoNotFoundException;
 import br.com.castelo.projetojovemcientista.model.Resultado;
 import br.com.castelo.projetojovemcientista.modelAssembler.ResultadoModelAssembler;
 import br.com.castelo.projetojovemcientista.repository.ResultadoRepository;

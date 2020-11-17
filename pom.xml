@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>br.com.castelo.projetojovemcientista</groupId>
 	<artifactId>projetojovemcientista-api</artifactId>
-	<version>0.0.1</version>
+	<version>1.0.0</version>
 	<name>projetojovemcientista-api</name>
 	<description>API do Projeto Jovem Cientista</description>
 
@@ -68,6 +68,15 @@
 			<artifactId>flyway-core</artifactId>
 		</dependency>
 		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>

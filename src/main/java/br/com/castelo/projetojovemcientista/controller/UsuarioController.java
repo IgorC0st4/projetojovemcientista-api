@@ -11,6 +11,7 @@ import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.IanaLinkRelations;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import br.com.castelo.projetojovemcientista.exception.SenhaIncorretaException;
@@ -38,6 +39,8 @@ public class UsuarioController {
 
 	@PostMapping("/cadastro")
 	public ResponseEntity<?> salvar(@RequestBody Usuario novoUsuario) {
+		novoUsuario.setSenha(new BCryptPasswordEncoder().encode(novoUsuario.getSenha()));
+		System.out.println(novoUsuario.toString());
 		EntityModel<Usuario> entityModel = assembler.toModel(repository.save(novoUsuario));
 		return ResponseEntity.created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri()).body(entityModel);
 	}
@@ -45,7 +48,7 @@ public class UsuarioController {
 	@PostMapping("/login")
 	public EntityModel<Usuario> efetuarLogin(@RequestBody Usuario usuarioLogin) {
 		Usuario usuario = repository.findByNick(usuarioLogin.getNick()).orElseThrow(() -> new UsuarioNotFoundException(usuarioLogin.getNick()));
-		if(usuario.getSenha().equals(usuarioLogin.getSenha())) {
+		if(new BCryptPasswordEncoder().matches(usuarioLogin.getSenha(), usuario.getSenha())) {
 			return assembler.toModel(usuario);
 		}else {
 			throw new SenhaIncorretaException();

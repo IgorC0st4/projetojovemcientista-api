@@ -9,7 +9,6 @@ import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
 
 import br.com.castelo.projetojovemcientista.controller.ResultadoController;
-import br.com.castelo.projetojovemcientista.controller.UsuarioController;
 import br.com.castelo.projetojovemcientista.model.Resultado;
 
 @ManagedBean
