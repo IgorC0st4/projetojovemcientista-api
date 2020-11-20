@@ -5,6 +5,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
@@ -14,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import br.com.castelo.projetojovemcientista.exception.NickJaCadastradoException;
 import br.com.castelo.projetojovemcientista.exception.SenhaIncorretaException;
 import br.com.castelo.projetojovemcientista.exception.UsuarioNotFoundException;
 import br.com.castelo.projetojovemcientista.model.Usuario;
@@ -38,10 +40,14 @@ public class UsuarioController {
 	}
 
 	@PostMapping("/cadastro")
-	public ResponseEntity<?> salvar(@RequestBody Usuario novoUsuario) {
+	public ResponseEntity<?> salvar(@RequestBody Usuario novoUsuario) throws SQLIntegrityConstraintViolationException {
 		novoUsuario.setSenha(new BCryptPasswordEncoder().encode(novoUsuario.getSenha()));
-		System.out.println(novoUsuario.toString());
-		EntityModel<Usuario> entityModel = assembler.toModel(repository.save(novoUsuario));
+		EntityModel<Usuario> entityModel = null;
+		try {
+			entityModel = assembler.toModel(repository.save(novoUsuario));
+		}catch (Exception e) {
+			throw new NickJaCadastradoException(novoUsuario.getNick());
+		}
 		return ResponseEntity.created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri()).body(entityModel);
 	}
 	
