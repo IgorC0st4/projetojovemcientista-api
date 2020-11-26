@@ -18,6 +18,7 @@ public class Usuario {
 	@Column(name = "tipo_escola")
 	private String tipoEscola;
 	private String genero;
+	private String transtorno;
 	private String senha;
 
 	public Long getId() {
@@ -68,6 +69,14 @@ public class Usuario {
 		this.genero = genero;
 	}
 	
+	public String getTranstorno() {
+		return transtorno;
+	}
+
+	public void setTranstorno(String transtorno) {
+		this.transtorno = transtorno;
+	}
+
 	public String getSenha() {
 		return senha;
 	}
