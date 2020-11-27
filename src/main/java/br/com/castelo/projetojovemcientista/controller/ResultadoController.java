@@ -1,20 +1,13 @@
 package br.com.castelo.projetojovemcientista.controller;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
-
-import java.util.List;
-import java.util.stream.Collectors;
-
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.CollectionModel;
-import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.IanaLinkRelations;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
 import br.com.castelo.projetojovemcientista.model.Resultado;
-import br.com.castelo.projetojovemcientista.modelAssembler.ResultadoModelAssembler;
 import br.com.castelo.projetojovemcientista.repository.ResultadoRepository;
 
 @RestController
@@ -24,47 +17,27 @@ import br.com.castelo.projetojovemcientista.repository.ResultadoRepository;
 public class ResultadoController {
 	@Autowired
 	private ResultadoRepository repository;
-	@Autowired
-	private ResultadoModelAssembler assembler;
 
 	@GetMapping
-	public CollectionModel<EntityModel<Resultado>> listar() {
-		List<EntityModel<Resultado>> resultados = repository.findAll().stream().map(assembler::toModel)
-				.collect(Collectors.toList());
-		return CollectionModel.of(resultados, linkTo(methodOn(ResultadoController.class).listar()).withSelfRel());
+	public ResponseEntity<?> listar() {
+		return ResponseEntity.ok(repository.findAll());
 	}
 
 	@PostMapping
+	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<?> salvar(@RequestBody Resultado novoResultado) {
-		EntityModel<Resultado> entityModel = assembler.toModel(repository.save(novoResultado));
-		return ResponseEntity.created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri()).body(entityModel);
+		return ResponseEntity.ok(repository.save(novoResultado));
 	}
 
 	@GetMapping("/maisRapido/{id}")
-	public EntityModel<Resultado> procurarResultadoMaisRapido(@PathVariable Long id) {
-		Resultado resultado = repository.findResultadoMaisRapido(id);
-		return assembler.toModel(resultado);
+	public ResponseEntity<?> procurarResultadoMaisRapido(@PathVariable Long id) {
+		Optional<Resultado> resultado = repository.findResultadoMaisRapido(id);
+		
+		if(resultado.isPresent()) {
+			return ResponseEntity.ok(resultado.get());
+		}
+		return ResponseEntity.notFound().build();
+		
 	}
 
-	@PutMapping("/{id}")
-	public ResponseEntity<?> atualizar(@RequestBody Resultado novoResultado, @PathVariable Long id) {
-		Resultado resultadoAtualizado = repository.findById(id).map(resultado -> {
-			resultado.setNivel(novoResultado.getNivel());
-			resultado.setTempoFinal(novoResultado.getTempoFinal());
-			resultado.setUsuario(novoResultado.getUsuario());
-			return repository.save(resultado);
-		}).orElseGet(() -> {
-			novoResultado.setId(id);
-			return repository.save(novoResultado);
-		});
-
-		EntityModel<Resultado> entityModel = assembler.toModel(resultadoAtualizado);
-		return ResponseEntity.created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri()).body(entityModel);
-	}
-
-	@DeleteMapping("/{id}")
-	public ResponseEntity<?> deletar(@PathVariable Long id) {
-		repository.deleteById(id);
-		return ResponseEntity.noContent().build();
-	}
 }
