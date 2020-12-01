@@ -26,6 +26,13 @@ public class ResultadoController {
 	public ResponseEntity<?> listar() {
 		return ResponseEntity.ok(resultadoRepository.findAll());
 	}
+	
+	@PostMapping
+	@ResponseStatus(HttpStatus.CREATED)
+	public ResponseEntity<?> salvar(
+			@RequestBody Resultado novoResultado) {
+		return ResponseEntity.ok(resultadoRepository.save(novoResultado));
+	}
 
 	@PostMapping("/{usuarioId}")
 	@ResponseStatus(HttpStatus.CREATED)
