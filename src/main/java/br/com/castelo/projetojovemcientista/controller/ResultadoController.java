@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import br.com.castelo.projetojovemcientista.model.Resultado;
 import br.com.castelo.projetojovemcientista.repository.ResultadoRepository;
+import br.com.castelo.projetojovemcientista.repository.UsuarioRepository;
 
 @RestController
 @RequestMapping("/resultado")
@@ -16,22 +17,28 @@ import br.com.castelo.projetojovemcientista.repository.ResultadoRepository;
 @CrossOrigin(allowedHeaders = "*", origins = "*")
 public class ResultadoController {
 	@Autowired
-	private ResultadoRepository repository;
+	private ResultadoRepository resultadoRepository;
+	
+	@Autowired
+	private UsuarioRepository usuarioRepository;
 
 	@GetMapping
 	public ResponseEntity<?> listar() {
-		return ResponseEntity.ok(repository.findAll());
+		return ResponseEntity.ok(resultadoRepository.findAll());
 	}
 
-	@PostMapping
+	@PostMapping("/{usuarioId}")
 	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<?> salvar(@RequestBody Resultado novoResultado) {
-		return ResponseEntity.ok(repository.save(novoResultado));
+	public ResponseEntity<?> salvar(
+			@RequestBody Resultado novoResultado,
+			@PathVariable Long usuarioId) {
+		novoResultado.setUsuario(usuarioRepository.findById(usuarioId).get());
+		return ResponseEntity.ok(resultadoRepository.save(novoResultado));
 	}
 
 	@GetMapping("/maisRapido/{id}")
 	public ResponseEntity<?> procurarResultadoMaisRapido(@PathVariable Long id) {
-		Optional<Resultado> resultado = repository.findResultadoMaisRapido(id);
+		Optional<Resultado> resultado = resultadoRepository.findResultadoMaisRapido(id);
 		
 		if(resultado.isPresent()) {
 			return ResponseEntity.ok(resultado.get());
