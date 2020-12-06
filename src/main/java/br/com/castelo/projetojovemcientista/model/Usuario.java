@@ -17,7 +17,7 @@ public class Usuario {
 	private int escolaridade;
 	@Column(name = "tipo_escola")
 	private String tipoEscola;
-	private String genero;
+	private String sexo;
 	private String transtorno;
 	private String senha;
 
@@ -61,12 +61,12 @@ public class Usuario {
 		this.tipoEscola = tipoEscola;
 	}
 
-	public String getGenero() {
-		return genero;
+	public String getSexo() {
+		return sexo;
 	}
 
-	public void setGenero(String genero) {
-		this.genero = genero;
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
 	}
 	
 	public String getTranstorno() {
@@ -113,7 +113,7 @@ public class Usuario {
 	@Override
 	public String toString() {
 		return "Usuario [id=" + id + ", nick=" + nick + ", idade=" + idade + ", escolaridade=" + escolaridade
-				+ ", tipoEscola=" + tipoEscola + ", genero=" + genero + ", senha=" + senha + "]";
+				+ ", tipoEscola=" + tipoEscola + ", sexo=" + sexo + ", senha=" + senha + "]";
 	}
 
 	

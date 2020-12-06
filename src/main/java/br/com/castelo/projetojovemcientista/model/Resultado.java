@@ -15,7 +15,7 @@ public class Resultado {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@Column(name = "tempo_final")
-	private String tempoFinal;
+	private int tempoFinal;
 	private int erros;
 	@ManyToOne
 	@JoinColumn(name = "id_usuario")
@@ -35,11 +35,11 @@ public class Resultado {
 		this.id = id;
 	}
 
-	public String getTempoFinal() {
+	public int getTempoFinal() {
 		return tempoFinal;
 	}
 
-	public void setTempoFinal(String tempoFinal) {
+	public void setTempoFinal(int tempoFinal) {
 		this.tempoFinal = tempoFinal;
 	}
 

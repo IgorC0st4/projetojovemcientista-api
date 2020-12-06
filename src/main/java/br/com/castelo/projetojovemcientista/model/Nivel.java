@@ -14,9 +14,9 @@ public class Nivel {
 	private Long id;
 	private int numero;
 	@Column(name = "parametro_inferior")
-	private String parametroInferior;
+	private int parametroInferior;
 	@Column(name = "parametro_superior")
-	private String parametroSuperior;
+	private int parametroSuperior;
 
 	public Nivel() {
 	}
@@ -37,19 +37,19 @@ public class Nivel {
 		this.numero = numero;
 	}
 
-	public String getParametroInferior() {
+	public int getParametroInferior() {
 		return parametroInferior;
 	}
 
-	public void setParametroInferior(String parametroInferior) {
+	public void setParametroInferior(int parametroInferior) {
 		this.parametroInferior = parametroInferior;
 	}
 
-	public String getParametroSuperior() {
+	public int getParametroSuperior() {
 		return parametroSuperior;
 	}
 
-	public void setParametroSuperior(String parametroSuperior) {
+	public void setParametroSuperior(int parametroSuperior) {
 		this.parametroSuperior = parametroSuperior;
 	}
 
