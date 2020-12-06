@@ -20,7 +20,7 @@ CREATE TABLE `usuario` (
     `escolaridade` INTEGER NOT NULL,
     `tipo_escola` VARCHAR(10) NOT NULL,
     `sexo` VARCHAR(1) NOT NULL,
-    `transtorno` VARCHAR(10) NOT NULL,
+    `transtorno` VARCHAR(20) NOT NULL,
     `senha` TEXT NOT NULL,
     PRIMARY KEY (`id`)
 );
