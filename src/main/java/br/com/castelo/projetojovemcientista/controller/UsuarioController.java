@@ -50,4 +50,20 @@ public class UsuarioController {
 		return ResponseEntity.notFound().build();
 	}
 
+	@PutMapping("/{id}")
+	@ResponseStatus(HttpStatus.CREATED)
+	public ResponseEntity<?> atualizarCadastro(@RequestBody Usuario novoUsuario, @PathVariable Long id) {
+		Usuario usuarioAtualizado = repository.findById(id).map(usuario -> {
+			usuario.setEscolaridade(novoUsuario.getEscolaridade());
+			usuario.setIdade(novoUsuario.getIdade());
+			usuario.setSenha(new BCryptPasswordEncoder().encode(novoUsuario.getSenha()));
+			return repository.save(usuario);
+		}).orElseGet(() -> {
+			novoUsuario.setId(id);
+			return repository.save(novoUsuario);
+		});
+
+		return ResponseEntity.ok(usuarioAtualizado);
+	}
+
 }

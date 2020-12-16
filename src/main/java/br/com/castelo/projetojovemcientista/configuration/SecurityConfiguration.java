@@ -33,6 +33,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.antMatchers("/nivel").permitAll()
 			.antMatchers("/resultado").permitAll()
 			.antMatchers("/usuario").permitAll()
+			.antMatchers("/relatorio").permitAll()
 			.and()
 			.csrf().disable().formLogin()
 			.usernameParameter("nick")
